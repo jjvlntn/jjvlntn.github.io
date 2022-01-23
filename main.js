@@ -115,7 +115,7 @@
         var threeGLTFLoader = new THREE.GLTFLoader();
         var model;
 
-        threeGLTFLoader.load("./data/Flamingo.glb", function (gltf) {
+        threeGLTFLoader.load("./data/medal-scene.glb", function (gltf) {
             model = gltf.scene.children[0];
             model.name = 'Flamingo';
 
