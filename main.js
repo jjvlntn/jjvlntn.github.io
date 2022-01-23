@@ -104,7 +104,7 @@
             smooth: true,
             smoothCount: 5,
             smoothTolance: 0.01,
-            smoothThreshhold: 2
+            smoothThreshold: 2
         })
 
         scene.visible = false
