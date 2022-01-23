@@ -125,7 +125,7 @@
             // var action = mixer.clipAction(animation);
             // action.play();
 
-            // root.matrixAutoUpdate = false;
+            root.matrixAutoUpdate = false;
             root.add(model);
 
             model.position.z = -200;
