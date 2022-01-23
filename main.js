@@ -119,13 +119,13 @@
             model = gltf.scene.children[0];
             model.name = 'Flamingo';
 
-            var animation = gltf.animations[0];
-            var mixer = new THREE.AnimationMixer(model);
-            mixers.push(mixer);
-            var action = mixer.clipAction(animation);
-            action.play();
+            // var animation = gltf.animations[0];
+            // var mixer = new THREE.AnimationMixer(model);
+            // mixers.push(mixer);
+            // var action = mixer.clipAction(animation);
+            // action.play();
 
-            root.matrixAutoUpdate = false;
+            // root.matrixAutoUpdate = false;
             root.add(model);
 
             model.position.z = -200;
