@@ -100,7 +100,11 @@
         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
             type : 'nft',
             descriptorsUrl : 'data/medal',
-            changeMatrixMode: 'cameraTransformMatrix'
+            changeMatrixMode: 'cameraTransformMatrix',
+            smooth: true,
+            smoothCount: 5,
+            smoothTolance: 0.01,
+            smoothThreshhold
         })
 
         scene.visible = false
