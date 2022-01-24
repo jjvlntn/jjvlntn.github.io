@@ -105,7 +105,7 @@
             changeMatrixMode: 'cameraTransformMatrix',
             smooth: true,
             smoothCount: 100,
-            smoothTolance: 0.02,
+            smoothTolerance: 0.02,
             smoothThreshold: 5
         })
 
