@@ -121,13 +121,13 @@
 
         var root = new THREE.Object3D();
         scene.add(root);
-        var smoothedControls = new THREEx.ArSmoothedControls(root, {
-            lerpPosition: 0.8,
-            lerpQuaternion: 0.8,
-            lerpScale: 1,
-            // minVisibleDelay: 1,
-            // minUnvisibleDelay: 1,
-        });
+        // var smoothedControls = new THREEx.ArSmoothedControls(root, {
+        //     lerpPosition: 0.8,
+        //     lerpQuaternion: 0.8,
+        //     lerpScale: 1,
+        //     // minVisibleDelay: 1,
+        //     // minUnvisibleDelay: 1,
+        // });
 
         //////////////////////////////////////////////////////////////////////////////////
         //		add an object in the scene
@@ -154,9 +154,9 @@
             root.add(model);
 
 
-            model.position.z = 0;
-            model.position.x = 0;
-            model.position.y = 0;
+            model.position.z = -180;
+            model.position.x = 210;
+            model.position.y = -267;
 
             gui.add(model.position, 'x', -1000 , 1000);
             gui.add(model.position, 'y', -1000 , 1000);
@@ -179,7 +179,7 @@
                 if (!arToolkitSource.ready) {
                     return;
                 }
-                smoothedControls.update(root);
+                // smoothedControls.update(root);
                 arToolkitContext.update( arToolkitSource.domElement )
 
                 // update scene.visible if the marker is seen
