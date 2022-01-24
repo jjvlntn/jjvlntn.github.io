@@ -179,7 +179,7 @@
                 if (!arToolkitSource.ready) {
                     return;
                 }
-
+                smoothedControls.update(root);
                 arToolkitContext.update( arToolkitSource.domElement )
 
                 // update scene.visible if the marker is seen
