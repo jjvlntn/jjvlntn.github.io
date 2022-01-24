@@ -121,7 +121,7 @@
 
         var root = new THREE.Object3D();
         scene.add(root);
-        var smoothedControls = smoothedControls = new THREEx.ArSmoothedControls(root, {
+        var smoothedControls = new THREEx.ArSmoothedControls(root, {
             lerpPosition: 0.8,
             lerpQuaternion: 0.8,
             lerpScale: 1,
