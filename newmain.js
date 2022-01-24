@@ -101,7 +101,7 @@
         // init controls for camera
         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
             type : 'nft',
-            descriptorsUrl : 'data/medal',
+            descriptorsUrl : 'data/plakat-1200',
             changeMatrixMode: 'cameraTransformMatrix',
             smooth: true,
             smoothCount: 100,
@@ -136,7 +136,7 @@
         var threeGLTFLoader = new THREE.GLTFLoader();
         var model;
 
-        threeGLTFLoader.load("./data/Flamingo.glb", function (gltf) {
+        threeGLTFLoader.load("./data/medal-light-90.glb", function (gltf) {
             model = gltf.scene.children[0];
             lights = gltf.scene.children[1];
             model.name = 'medal';
