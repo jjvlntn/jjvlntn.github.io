@@ -136,7 +136,7 @@
         var threeGLTFLoader = new THREE.GLTFLoader();
         var model;
 
-        threeGLTFLoader.load("./data/medal-light-90.glb", function (gltf) {
+        threeGLTFLoader.load("./data/Flamingo.glb", function (gltf) {
             model = gltf.scene.children[0];
             lights = gltf.scene.children[1];
             model.name = 'medal';
