@@ -114,11 +114,20 @@
         gui.add(markerControls.parameters , 'smoothCount', 1, 1000);
         gui.add(markerControls.parameters , 'smoothTolerance', 0.01, 0.1);
         gui.add(markerControls.parameters , 'smoothThreshold', 1, 100);
+        
+
 
         scene.visible = false
 
         var root = new THREE.Object3D();
         scene.add(root);
+        var smoothedControls = smoothedControls = new THREEx.ArSmoothedControls(root, {
+            lerpPosition: 0.8,
+            lerpQuaternion: 0.8,
+            lerpScale: 1,
+            // minVisibleDelay: 1,
+            // minUnvisibleDelay: 1,
+        });
 
         //////////////////////////////////////////////////////////////////////////////////
         //		add an object in the scene
