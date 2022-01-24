@@ -101,7 +101,7 @@
         // init controls for camera
         var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
             type : 'nft',
-            descriptorsUrl : 'data/plakat-1200',
+            descriptorsUrl : 'data/medal',
             changeMatrixMode: 'cameraTransformMatrix',
             smooth: true,
             smoothCount: 100,
@@ -155,7 +155,7 @@
 
 
             model.position.z = -180;
-            model.position.x = 210;
+            model.position.x = 250;
             model.position.y = -267;
 
             gui.add(model.position, 'x', -1000 , 1000);
