@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src='https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js'></script>
+    <script src="./lib/dat.gui.js"></script>
+
 
     <style>
         .arjs-loader {
@@ -35,28 +37,73 @@
 <!-- rawgithack development URL -->
 <script src='./lib/aframe-ar-nft.js'></script>
 
-<body style='margin : 0px; overflow: hidden;'>
+
+
+
+<body loaded-listener style='margin : 0px; overflow: hidden;'>
+
+  <!-- <script>
+    AFRAME.registerComponent('loaded-listener', {
+      schema:{
+        loaded:{type: 'boolean', default: true}
+      },
+      init: function () {
+  
+        console.log(this);
+        var el = this.el;  // reference to the entity that contains this component    
+        var data = this.data;  // reference to the properties of this component.    
+        // Listen for loading event
+        document.addEventListener('DOMContentLoaded', function(ev) {
+          console.log('hello')
+          el.setAttribute('load-listener','loaded', true)
+        })
+        
+      },
+      tick: function(){ // called every frame       
+        if(this.data.loaded){ // Check the mouseover state
+          let medal = document.getElementById('medal-entity');
+          let rot = medal.getAttribute('rotation');
+          medal.setAttribute('rotation',{x: rot.x, y: rot.y , z: rot.z + 1});
+        }
+      }      
+    });
+  </script> -->
+
    <!-- minimal loader shown until image descriptors are loaded -->
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
-    <a-scene
+    <a-scene 
         vr-mode-ui='enabled: false;'
         renderer="logarithmicDepthBuffer: true;"
         embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
 
-        <!-- use rawgithack to retrieve the correct url for nft marker (see 'pinball' below) -->
-        <a-nft
-            type='nft' url='./data/medal'
-            smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
-            <a-entity
-                gltf-model='./data/scene-light.gltf'
-                scale="3 3 3"
-                position="100 150 -25"
-                >
-            </a-entity>
-        </a-nft>
-		<a-entity camera></a-entity>
+        <a-box id="box" position="232 10 -136">
+          <!-- use rawgithack to retrieve the correct url for nft marker (see 'pinball' below) -->
+          <a-nft
+              type='nft' url='./data/medal'
+              smooth='true' smoothCount='30' smoothTolerance='0.01' smoothThreshold='5'>
+              <a-entity
+                  id="medal-entity"
+                  gltf-model='./data/scene-font.gltf'
+                  scale="4 4 4"
+                  position="0 0 0"
+                  rotation="0 0 0"
+                  >
+              </a-entity>
+          </a-nft>
+          <a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
+        <a-light id="light" type="directional" position="0 500 500" rotation="0 0 0" intensity="10">
+          <!-- <a-entity id="directionaltarget" position="0 0 0"></a-entity> -->
+        </a-light>
+        <a-light id="second-light" type="directional" position="500 -500 500" rotation="0 0 0" intensity="10">
+          <!-- <a-entity id="directionaltarget" position="0 0 0"></a-entity> -->
+        </a-light>
+      </a-box>
+        <!-- get lights in the scene -->
+		  <a-entity camera></a-entity>
     </a-scene>
+
+    <script src="./main.js"></script>
 </body>
 </html>

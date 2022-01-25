@@ -1,167 +1,55 @@
- //////////////////////////////////////////////////////////////////////////////////
-        //		Init
-        //////////////////////////////////////////////////////////////////////////////////
+let gui = new dat.GUI();
 
-        var renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true,
-            precision: 'mediump',
-        });
+let clock = new THREE.Clock();
 
-        var clock = new THREE.Clock();
+let isSceneVisible = false;
+let reqId;
 
-        var mixers = [];
+let medalEntity = document.getElementById('medal-entity');
+let box = document.getElementById('box');
+let light = document.getElementById('light');
 
-        renderer.setPixelRatio(window.devicePixelRatio);
+console.log(medalEntity);
 
-        renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        renderer.domElement.style.position = 'absolute'
-        renderer.domElement.style.top = '0px'
-        renderer.domElement.style.left = '0px'
-        console.log(renderer)
-        console.log(document.body)
-        document.body.appendChild( renderer.domElement );
-
-        // init scene and camera
-        var scene = new THREE.Scene();
-
-        //////////////////////////////////////////////////////////////////////////////////
-        //		Initialize a basic camera
-        //////////////////////////////////////////////////////////////////////////////////
-
-        // Create a camera
-        var camera = new THREE.Camera();
-        scene.add(camera);
-
-        var light = new THREE.AmbientLight(0xffffff);
-        scene.add(light);
-
-        ////////////////////////////////////////////////////////////////////////////////
-        //          handle arToolkitSource
-        ////////////////////////////////////////////////////////////////////////////////
-
-        var arToolkitSource = new THREEx.ArToolkitSource({
-            sourceType : 'webcam',
-            sourceWidth: 480,
-            sourceHeight: 640,
-        })
-
-        arToolkitSource.init(function onReady(){
-            // use a resize to fullscreen mobile devices
-            setTimeout(function() {
-                onResize()
-            }, 1000);
-        })
-
-        // handle resize
-        window.addEventListener('resize', function(){
-            onResize()
-        })
-
-        // listener for end loading of NFT marker
-        window.addEventListener('arjs-nft-loaded', function(ev){
-          console.log(ev);
-        })
-
-        function onResize(){
-            arToolkitSource.onResizeElement()
-            arToolkitSource.copyElementSizeTo(renderer.domElement)
-            if( arToolkitContext.arController !== null ){
-                arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
-            }
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////
-        //          initialize arToolkitContext
-        ////////////////////////////////////////////////////////////////////////////////
-
-        // create atToolkitContext
-        var arToolkitContext = new THREEx.ArToolkitContext({
-            detectionMode: 'mono',
-            canvasWidth: 480,
-            canvasHeight: 640,
-        }, {
-            sourceWidth: 480,
-            sourceHeight: 640,
-        })
-
-        // initialize it
-        arToolkitContext.init(function onCompleted(){
-            // copy projection matrix to camera
-            camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
-        })
-
-        ////////////////////////////////////////////////////////////////////////////////
-        //          Create a ArMarkerControls
-        ////////////////////////////////////////////////////////////////////////////////
-
-        // init controls for camera
-        var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
-            type : 'nft',
-            descriptorsUrl : 'data/medal',
-            changeMatrixMode: 'cameraTransformMatrix',
-            smooth: true,
-            smoothCount: 5,
-            smoothTolance: 0.01,
-            smoothThreshold: 2
-        })
-
-        scene.visible = false
-
-        var root = new THREE.Object3D();
-        scene.add(root);
-
-        //////////////////////////////////////////////////////////////////////////////////
-        //		add an object in the scene
-        //////////////////////////////////////////////////////////////////////////////////
-
-        var threeGLTFLoader = new THREE.GLTFLoader();
-        var model;
-
-        threeGLTFLoader.load("./data/medal-scene.glb", function (gltf) {
-            model = gltf.scene.children[0];
-            model.name = 'Flamingo';
-
-            // var animation = gltf.animations[0];
-            // var mixer = new THREE.AnimationMixer(model);
-            // mixers.push(mixer);
-            // var action = mixer.clipAction(animation);
-            // action.play();
-
-            root.matrixAutoUpdate = false;
-            root.add(model);
-
-            model.position.z = 0;
-            model.position.x = 0;
-            model.position.y = 0;
+gui.add(box.object3D.position, 'x', -200, 400);
+gui.add(box.object3D.position, 'y', -200, 200);
+gui.add(box.object3D.position, 'z', -200, 200);
 
 
-            //////////////////////////////////////////////////////////////////////////////////
-            //		render the whole thing on the page
-            //////////////////////////////////////////////////////////////////////////////////
+gui.add(medalEntity.object3D.position, 'x', 0, 500);
+gui.add(medalEntity.object3D.position, 'y', 0, 500);
+gui.add(medalEntity.object3D.position, 'z', -200, 200);
 
-            var animate = function() {
-                requestAnimationFrame(animate);
 
-                if (mixers.length > 0) {
-                    for (var i = 0; i < mixers.length; i++) {
-                        mixers[i].update(clock.getDelta());
-                    }
-                }
+// gui.add(light.object3D.position, 'x', -200, 400);
+// gui.add(light.object3D.position, 'y', 0, 500);
+// gui.add(light.object3D.position, 'z', 0, 500);
 
-                if (!arToolkitSource.ready) {
-                    return;
-                }
+function rotationAnimation(){
+    reqId = undefined;
+    //console.log(medalEntity);
+    // console.log(medalEntity.object3D);
+    let step = 0.5 * clock.getDelta();
+    medalEntity.object3D.rotation.y += step;
+    //window.requestAnimationFrame(() => rotationAnimation())
+    start();
+}
 
-                arToolkitContext.update( arToolkitSource.domElement )
 
-                // update scene.visible if the marker is seen
-                scene.visible = camera.visible;
+function start(){
+    if(!reqId){
+        reqId = requestAnimationFrame(() => rotationAnimation())
+    }
+}
 
-                renderer.render(scene, camera);
-            };
+document.addEventListener('markerFound', () => {
+    rotationAnimation();
+    //console.log('finaly some progress!')
+})
 
-            requestAnimationFrame(animate);
-        }
-    );
+document.addEventListener('markerLost', () => {
+    if(reqId){
+        cancelAnimationFrame(reqId)
+        reqId = undefined;
+    }
+})
