@@ -5,79 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src='https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js'></script>
+    <script src="./lib/mindar-image.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/16/Stats.min.js"></script>
+    <script src="./lib/mindar-image-aframe.js"></script>
     <script src="./lib/dat.gui.js"></script>
 
-
     <style>
-        .arjs-loader {
-          height: 100%;
-          width: 100%;
+        body {
+          margin: 0;
+        }
+        .example-container {
+          overflow: hidden;
           position: absolute;
-          top: 0;
-          left: 0;
-          background-color: rgba(0, 0, 0, 0.8);
-          z-index: 9999;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          width: 100%;
+          height: 100%;
         }
-      
-        .arjs-loader div {
-          text-align: center;
-          font-size: 1.25em;
-          color: white;
-        }
-      </style>
+     </style>
+
 </head>
+<body>
 
+    <div class="example-container">
+        <a-scene mindar-image="imageTargetSrc: ./data/targets.mind; showStats: true; autoStart: true; captureRegion: true" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+            <a-assets>
+                <a-asset-item id="medal-entity" src="./data/medal-small.gltf"></a-asset-item>
+              </a-assets>
+            <a-box id="box" position="0 0 0">
+                  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+                
+                  <a-entity mindar-image-target="targetIndex: 0">
+                    <a-gltf-model  id="medal-model" rotation="0 0 0 " position="0 0 0.5" scale="0.05 0.05 0.05" src="#medal-entity" animation-mixer>
+                  </a-entity>
+                  <a-light id="light" type="directional" position="0 500 500" rotation="0 0 0" intensity="1">
+                    <!-- <a-entity id="directionaltarget" position="0 0 0"></a-entity> -->
+                  </a-light>
+                  <a-light id="second-light" type="directional" position="500 -500 500" rotation="0 0 0" intensity="1">
+                    <!-- <a-entity id="directionaltarget" position="0 0 0"></a-entity> -->
+                  </a-light>
 
-
-
-<!-- rawgithack development URL -->
-<script src='./lib/aframe-ar-nft.js'></script>
-
-
-
-
-<body loaded-listener style='margin : 0px; overflow: hidden;'>
-
-
-   <!-- minimal loader shown until image descriptors are loaded -->
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
-  </div>
-    <a-scene 
-        vr-mode-ui='enabled: false;'
-        renderer="logarithmicDepthBuffer: true;"
-        embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
-
-        <a-box id="box" position="26 176 103">
-          <!-- use rawgithack to retrieve the correct url for nft marker (see 'pinball' below) -->
-          <a-nft
-              type='nft' url='./data/medal'
-              smooth='true' smoothCount='30' smoothTolerance='0.01' smoothThreshold='5'>
-              <a-entity
-                  id="medal-entity"
-                  gltf-model='./data/scene-font.gltf'
-                  scale="4 4 4"
-                  position="0 0 0"
-                  rotation="0 0 0"
-                  >
-              </a-entity>
-          </a-nft>
-          <a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
-        <a-light id="light" type="directional" position="0 500 500" rotation="0 0 0" intensity="10">
-          <!-- <a-entity id="directionaltarget" position="0 0 0"></a-entity> -->
-        </a-light>
-        <a-light id="second-light" type="directional" position="500 -500 500" rotation="0 0 0" intensity="10">
-          <!-- <a-entity id="directionaltarget" position="0 0 0"></a-entity> -->
-        </a-light>
-      </a-box>
-        <!-- get lights in the scene -->
-		  <a-entity camera></a-entity>
-    </a-scene>
-
-    <script src="./main.js"></script>
+            </a-box>
+        </a-scene>
+      </div>
+      <script src="./js/main.js"></script>
 </body>
 </html>
