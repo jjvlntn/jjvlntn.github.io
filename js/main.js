@@ -30,7 +30,7 @@ function rotationAnimation(){
     //console.log(medalEntity);
     // console.log(medalEntity.object3D);
     let step = 0.5 * clock.getDelta();
-    medalEntity.object3D.rotation.z += step;
+    medalEntity.object3D.rotation.y += step;
     //window.requestAnimationFrame(() => rotationAnimation())
     start();
 }
