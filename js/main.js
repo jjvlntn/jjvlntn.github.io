@@ -9,7 +9,7 @@ let medalEntity = document.getElementById('medal-model');
 let box = document.getElementById('box');
 let light = document.getElementById('light');
 
-console.log(medalEntity);
+// console.log(medalEntity);
 
 // gui.add(box.object3D.position, 'x', -200, 400);
 // gui.add(box.object3D.position, 'y', -200, 200);
@@ -24,6 +24,21 @@ console.log(medalEntity);
 // gui.add(light.object3D.position, 'x', -200, 400);
 // gui.add(light.object3D.position, 'y', 0, 500);
 // gui.add(light.object3D.position, 'z', 0, 500);
+
+let childEl = `
+    <div id="message">
+        <h2>Pls scan the picture with the glass!</h2>
+    </div>
+`;
+
+
+document.addEventListener('arReady', () => {
+    console.log('ready')
+    let scanningDiv = document.getElementsByClassName('mindar-ui-scanning')[0];
+    console.log(typeof div)
+    console.log(typeof document.body)
+    scanningDiv.insertAdjacentHTML('afterbegin', childEl)
+})
 
 function rotationAnimation(){
     reqId = undefined;
@@ -43,14 +58,18 @@ function start(){
 }
 
 document.addEventListener('targetFound', () => {
+    let scanningDiv = document.getElementsByClassName('mindar-ui-scanning')[0];
     rotationAnimation();
-    console.log('finaly some progress!')
+    scanningDiv.classList.add('hidden')
+    // console.log('finaly some progress!')
 })
 
 document.addEventListener('targetLost', () => {
+    let scanningDiv = document.getElementsByClassName('mindar-ui-scanning')[0];
     if(reqId){
         cancelAnimationFrame(reqId)
         reqId = undefined;
+        scanningDiv.classList.remove('hidden');
     }
-    console.log('juhuuuuu')
+    // console.log('juhuuuuu')
 })
