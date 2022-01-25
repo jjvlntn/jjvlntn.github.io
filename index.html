@@ -42,32 +42,6 @@
 
 <body loaded-listener style='margin : 0px; overflow: hidden;'>
 
-  <!-- <script>
-    AFRAME.registerComponent('loaded-listener', {
-      schema:{
-        loaded:{type: 'boolean', default: true}
-      },
-      init: function () {
-  
-        console.log(this);
-        var el = this.el;  // reference to the entity that contains this component    
-        var data = this.data;  // reference to the properties of this component.    
-        // Listen for loading event
-        document.addEventListener('DOMContentLoaded', function(ev) {
-          console.log('hello')
-          el.setAttribute('load-listener','loaded', true)
-        })
-        
-      },
-      tick: function(){ // called every frame       
-        if(this.data.loaded){ // Check the mouseover state
-          let medal = document.getElementById('medal-entity');
-          let rot = medal.getAttribute('rotation');
-          medal.setAttribute('rotation',{x: rot.x, y: rot.y , z: rot.z + 1});
-        }
-      }      
-    });
-  </script> -->
 
    <!-- minimal loader shown until image descriptors are loaded -->
   <div class="arjs-loader">
