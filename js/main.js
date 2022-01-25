@@ -1,4 +1,4 @@
-let gui = new dat.GUI();
+// let gui = new dat.GUI();
 
 let clock = new THREE.Clock();
 
